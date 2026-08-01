@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>Sebez 360° Photo Booth · Book & Pay</title>
   <!-- Font Awesome for icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -261,26 +261,6 @@
       margin-right: 6px;
     }
 
-    .btn-outline {
-      background: transparent;
-      border: 1px solid rgba(255, 215, 0, 0.25);
-      color: #f0e9d0;
-      padding: 0.5rem 1.5rem;
-      border-radius: 40px;
-      transition: 0.2s;
-      text-decoration: none;
-      font-weight: 400;
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .btn-outline:hover {
-      background: rgba(245, 200, 66, 0.08);
-      border-color: #f5c842;
-      color: #f5c842;
-    }
-
     /* Toast notification */
     .toast {
       position: fixed;
@@ -314,6 +294,17 @@
     .toast i {
       color: #f5c842;
       font-size: 1.4rem;
+    }
+
+    .app-badge {
+      display: inline-block;
+      background: rgba(245, 200, 66, 0.1);
+      padding: 2px 10px;
+      border-radius: 20px;
+      font-size: 0.65rem;
+      color: #f5c842;
+      margin-top: 4px;
+      border: 1px solid rgba(245, 200, 66, 0.15);
     }
 
     @media (max-width: 550px) {
@@ -362,7 +353,7 @@
       <div class="contact-item"><i class="fab fa-telegram-plane"></i> <a href="https://t.me/s_ebez" target="_blank" rel="noopener noreferrer">@s_ebez</a></div>
     </div>
 
-    <!-- PAYMENT SECTION (direct to preferred app + copy) -->
+    <!-- PAYMENT SECTION with deep linking -->
     <div class="payment-section">
       <h3><i class="fas fa-hand-holding-usd"></i> Pay with your preferred app</h3>
       <div class="payment-grid">
@@ -371,7 +362,8 @@
           <div class="icon"><i class="fas fa-mobile-alt"></i></div>
           <div class="app-name">Telebirr</div>
           <div class="number">0940640089</div>
-          <a class="pay-link" href="#" onclick="handlePayment('Telebirr','0940640089','https://telebirr.et'); return false;">
+          <span class="app-badge"><i class="fas fa-external-link-alt"></i> Opens App</span>
+          <a class="pay-link" href="#" onclick="handlePayment('Telebirr','0940640089','telebirr://','https://telebirr.et'); return false;">
             <i class="fas fa-arrow-right"></i> Pay
           </a>
         </div>
@@ -380,7 +372,8 @@
           <div class="icon"><i class="fas fa-university"></i></div>
           <div class="app-name">Abyssinia</div>
           <div class="number">242102697</div>
-          <a class="pay-link" href="#" onclick="handlePayment('Abyssinia','242102697','https://abyssiniabank.com'); return false;">
+          <span class="app-badge"><i class="fas fa-external-link-alt"></i> Opens App</span>
+          <a class="pay-link" href="#" onclick="handlePayment('Abyssinia','242102697','abyssinia://','https://abyssiniabank.com'); return false;">
             <i class="fas fa-arrow-right"></i> Pay
           </a>
         </div>
@@ -389,7 +382,8 @@
           <div class="icon"><i class="fas fa-building-columns"></i></div>
           <div class="app-name">CBE</div>
           <div class="number">1000295220922</div>
-          <a class="pay-link" href="#" onclick="handlePayment('CBE','1000295220922','https://combanketh.et'); return false;">
+          <span class="app-badge"><i class="fas fa-external-link-alt"></i> Opens App</span>
+          <a class="pay-link" href="#" onclick="handlePayment('CBE','1000295220922','cbebirr://','https://combanketh.et'); return false;">
             <i class="fas fa-arrow-right"></i> Pay
           </a>
         </div>
@@ -398,13 +392,14 @@
           <div class="icon"><i class="fas fa-landmark"></i></div>
           <div class="app-name">Dashen</div>
           <div class="number">5003806013011</div>
-          <a class="pay-link" href="#" onclick="handlePayment('Dashen','5003806013011','https://dashenbank.com'); return false;">
+          <span class="app-badge"><i class="fas fa-external-link-alt"></i> Opens App</span>
+          <a class="pay-link" href="#" onclick="handlePayment('Dashen','5003806013011','dashen://','https://dashenbank.com'); return false;">
             <i class="fas fa-arrow-right"></i> Pay
           </a>
         </div>
       </div>
       <div style="margin-top: 1rem; font-size: 0.8rem; color: #a0a9c7; text-align: center; border-top: 1px dashed rgba(255,215,0,0.1); padding-top: 1rem;">
-        <i class="fas fa-shield-alt" style="color: #f5c842;"></i> Click “Pay” to copy account & open the app
+        <i class="fas fa-shield-alt" style="color: #f5c842;"></i> Click “Pay” to open the app & copy account number
       </div>
     </div>
 
@@ -434,16 +429,14 @@
       clearTimeout(toastTimeout);
       toastTimeout = setTimeout(() => {
         toast.classList.remove('show');
-      }, 3000);
+      }, 4000);
     }
 
     /**
-     * handlePayment - copies account number, opens the app/website, and shows feedback.
-     * @param {string} appName - Display name of the payment app
-     * @param {string} accountNumber - Account number to copy
-     * @param {string} appUrl - URL to open (app deep link or website)
+     * handlePayment - Copies account number, attempts to open the app via deep link,
+     * and falls back to website if app is not installed.
      */
-    function handlePayment(appName, accountNumber, appUrl) {
+    function handlePayment(appName, accountNumber, deepLink, webUrl) {
       // 1. Copy account number to clipboard
       if (navigator.clipboard && navigator.clipboard.writeText) {
         navigator.clipboard.writeText(accountNumber)
@@ -451,21 +444,50 @@
             showToast(`✅ ${appName} account copied: ${accountNumber}`);
           })
           .catch(() => {
-            // fallback copy
             fallbackCopy(accountNumber, appName);
           });
       } else {
         fallbackCopy(accountNumber, appName);
       }
 
-      // 2. Open the app/website in a new tab (or attempt deep link)
-      if (appUrl) {
-        // Open in new tab; if it's a deep link, the app may intercept.
-        window.open(appUrl, '_blank');
-      }
+      // 2. Attempt to open the app via deep link
+      // First try the deep link (will open app if installed)
+      const appLink = document.createElement('a');
+      appLink.href = deepLink;
+      appLink.style.display = 'none';
+      document.body.appendChild(appLink);
+      
+      // Try to open the app
+      const startTime = Date.now();
+      appLink.click();
+      
+      // Fallback: if app doesn't open (user stays on page), redirect to website after a delay
+      setTimeout(() => {
+        const elapsed = Date.now() - startTime;
+        // If the page is still visible, the app likely didn't open
+        if (document.hasFocus() || elapsed > 500) {
+          // Open website as fallback
+          window.open(webUrl, '_blank');
+        }
+        document.body.removeChild(appLink);
+      }, 2500);
 
-      // 3. Also log for debugging
-      console.log(`🔗 ${appName} · Account: ${accountNumber} · URL: ${appUrl}`);
+      // Also try using window.location for better compatibility
+      setTimeout(() => {
+        // This is a second attempt using location.href
+        // Only do this if we haven't navigated away
+        try {
+          // Check if we're still on the page
+          if (document.hasFocus()) {
+            // Try location.href as another method
+            window.location.href = deepLink;
+          }
+        } catch (e) {
+          // Ignore errors
+        }
+      }, 100);
+
+      console.log(`🔗 ${appName} · Account: ${accountNumber} · Deep Link: ${deepLink} · Fallback: ${webUrl}`);
     }
 
     /**
@@ -476,6 +498,7 @@
       input.value = text;
       input.style.position = 'fixed';
       input.style.opacity = '0';
+      input.style.left = '-9999px';
       document.body.appendChild(input);
       input.select();
       try {
@@ -487,11 +510,97 @@
       document.body.removeChild(input);
     }
 
-    // Attach click handlers to all .pay-link (optional, but we already use inline onclick)
-    // Also make sure the toast is hidden initially.
+    // Initialize - hide toast on load
     window.addEventListener('load', function() {
       toast.classList.remove('show');
     });
+
+    // Alternative: Use a more aggressive approach for mobile
+    // This tries to use the intent:// scheme for Android
+    function getIntentUrl(packageName, deepLink) {
+      // For Android, we can use intent:// scheme
+      return `intent://${deepLink.replace(/^[a-z]+:\/\//, '')}#Intent;scheme=${deepLink.split(':')[0]};package=${packageName};end`;
+    }
+
+    // Deep link configurations with package names for Android
+    const appConfigs = {
+      'Telebirr': {
+        package: 'com.ethiotelebirr.app',
+        deepLink: 'telebirr://',
+        webUrl: 'https://telebirr.et'
+      },
+      'Abyssinia': {
+        package: 'com.abyssinia.bank',
+        deepLink: 'abyssinia://',
+        webUrl: 'https://abyssiniabank.com'
+      },
+      'CBE': {
+        package: 'com.cbe.birr',
+        deepLink: 'cbebirr://',
+        webUrl: 'https://combanketh.et'
+      },
+      'Dashen': {
+        package: 'com.dashen.bank',
+        deepLink: 'dashen://',
+        webUrl: 'https://dashenbank.com'
+      }
+    };
+
+    // Override handlePayment with enhanced version that uses intent for Android
+    const originalHandlePayment = handlePayment;
+    handlePayment = function(appName, accountNumber, deepLink, webUrl) {
+      // 1. Copy account number
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(accountNumber)
+          .then(() => {
+            showToast(`✅ ${appName} account copied: ${accountNumber}`);
+          })
+          .catch(() => {
+            fallbackCopy(accountNumber, appName);
+          });
+      } else {
+        fallbackCopy(accountNumber, appName);
+      }
+
+      // 2. Detect if mobile and use appropriate deep link method
+      const isMobile = /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+      const isAndroid = /Android/i.test(navigator.userAgent);
+      
+      if (isMobile) {
+        // Try to open the app using multiple methods
+        if (isAndroid && appConfigs[appName]) {
+          // Use intent:// for Android - more reliable
+          const config = appConfigs[appName];
+          const intentUrl = `intent://${deepLink.replace(/^[a-z]+:\/\//, '')}#Intent;scheme=${deepLink.split(':')[0]};package=${config.package};end`;
+          
+          // Create and click intent link
+          const link = document.createElement('a');
+          link.href = intentUrl;
+          link.style.display = 'none';
+          document.body.appendChild(link);
+          link.click();
+          setTimeout(() => {
+            document.body.removeChild(link);
+          }, 1000);
+        } else {
+          // iOS or other: use location.href with deep link
+          window.location.href = deepLink;
+        }
+        
+        // Fallback: if app doesn't open, redirect to website after delay
+        setTimeout(() => {
+          // If we're still on the page, open website as fallback
+          if (document.hasFocus()) {
+            window.open(webUrl, '_blank');
+          }
+        }, 3000);
+      } else {
+        // Desktop: just open the website
+        window.open(webUrl, '_blank');
+      }
+
+      console.log(`🔗 ${appName} · Account: ${accountNumber} · Deep Link: ${deepLink} · Fallback: ${webUrl}`);
+    };
   </script>
 </body>
 </html>
