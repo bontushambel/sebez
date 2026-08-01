@@ -171,7 +171,7 @@
     .payment-card {
       background: rgba(255, 255, 255, 0.03);
       border-radius: 24px;
-      padding: 1rem 0.8rem 1rem;
+      padding: 1.2rem 0.8rem 1.2rem;
       text-align: center;
       border: 1px solid rgba(255, 215, 0, 0.1);
       transition: all 0.25s ease;
@@ -206,41 +206,53 @@
 
     .payment-card .number {
       color: #b0b9d4;
-      font-size: 0.8rem;
+      font-size: 0.85rem;
       background: rgba(0,0,0,0.3);
-      padding: 0.25rem 0.6rem;
+      padding: 0.35rem 0.8rem;
       border-radius: 40px;
       display: inline-block;
-      margin-top: 8px;
+      margin-top: 10px;
       font-family: 'Courier New', monospace;
       letter-spacing: 0.5px;
       border: 1px solid rgba(255, 215, 0, 0.05);
+      word-break: break-all;
     }
 
-    .payment-card .pay-link {
+    .payment-card .copy-btn {
       display: inline-block;
-      margin-top: 12px;
+      margin-top: 14px;
       background: #f5c842;
       color: #0b0c10;
       font-weight: 600;
-      padding: 0.4rem 1.4rem;
+      padding: 0.5rem 1.6rem;
       border-radius: 40px;
       text-decoration: none;
-      font-size: 0.85rem;
+      font-size: 0.9rem;
       transition: 0.2s;
       box-shadow: 0 4px 12px rgba(245, 200, 66, 0.2);
       border: 1px solid rgba(255, 255, 255, 0.1);
       cursor: pointer;
+      user-select: none;
     }
 
-    .payment-card .pay-link:hover {
+    .payment-card .copy-btn:hover {
       background: #ffe074;
       box-shadow: 0 6px 18px rgba(245, 200, 66, 0.4);
       transform: scale(1.02);
     }
 
-    .payment-card .pay-link i {
-      margin-right: 6px;
+    .payment-card .copy-btn:active {
+      transform: scale(0.95);
+    }
+
+    .payment-card .copy-btn i {
+      margin-right: 8px;
+    }
+
+    .payment-card .copy-btn.copied {
+      background: #4caf50;
+      border-color: #4caf50;
+      color: white;
     }
 
     .footnote {
@@ -266,8 +278,8 @@
       position: fixed;
       bottom: 30px;
       left: 50%;
-      transform: translateX(-50%);
-      background: rgba(0,0,0,0.85);
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(0,0,0,0.9);
       backdrop-filter: blur(8px);
       color: #f5e7c8;
       padding: 0.9rem 2rem;
@@ -280,9 +292,10 @@
       gap: 12px;
       z-index: 999;
       opacity: 0;
-      transition: opacity 0.3s ease, transform 0.3s ease;
+      transition: all 0.4s ease;
       pointer-events: none;
       font-size: 0.95rem;
+      max-width: 90%;
     }
 
     .toast.show {
@@ -292,19 +305,16 @@
     }
 
     .toast i {
-      color: #f5c842;
+      color: #4caf50;
       font-size: 1.4rem;
     }
 
-    .app-badge {
-      display: inline-block;
-      background: rgba(245, 200, 66, 0.1);
-      padding: 2px 10px;
-      border-radius: 20px;
-      font-size: 0.65rem;
+    .toast .toast-icon-error i {
+      color: #ff6b6b;
+    }
+
+    .toast .toast-icon-copy i {
       color: #f5c842;
-      margin-top: 4px;
-      border: 1px solid rgba(245, 200, 66, 0.15);
     }
 
     @media (max-width: 550px) {
@@ -353,7 +363,7 @@
       <div class="contact-item"><i class="fab fa-telegram-plane"></i> <a href="https://t.me/s_ebez" target="_blank" rel="noopener noreferrer">@s_ebez</a></div>
     </div>
 
-    <!-- PAYMENT SECTION with deep linking -->
+    <!-- PAYMENT SECTION - Copy Only -->
     <div class="payment-section">
       <h3><i class="fas fa-hand-holding-usd"></i> Pay with your preferred app</h3>
       <div class="payment-grid">
@@ -361,45 +371,41 @@
         <div class="payment-card">
           <div class="icon"><i class="fas fa-mobile-alt"></i></div>
           <div class="app-name">Telebirr</div>
-          <div class="number">0940640089</div>
-          <span class="app-badge"><i class="fas fa-external-link-alt"></i> Opens App</span>
-          <a class="pay-link" href="#" onclick="handlePayment('Telebirr','0940640089','telebirr://','https://telebirr.et'); return false;">
-            <i class="fas fa-arrow-right"></i> Pay
-          </a>
+          <div class="number" id="account-telebirr">0940640089</div>
+          <button class="copy-btn" onclick="copyAccount('telebirr', '0940640089')">
+            <i class="fas fa-copy"></i> Copy Account
+          </button>
         </div>
         <!-- Abyssinia -->
         <div class="payment-card">
           <div class="icon"><i class="fas fa-university"></i></div>
           <div class="app-name">Abyssinia</div>
-          <div class="number">242102697</div>
-          <span class="app-badge"><i class="fas fa-external-link-alt"></i> Opens App</span>
-          <a class="pay-link" href="#" onclick="handlePayment('Abyssinia','242102697','abyssinia://','https://abyssiniabank.com'); return false;">
-            <i class="fas fa-arrow-right"></i> Pay
-          </a>
+          <div class="number" id="account-abyssinia">242102697</div>
+          <button class="copy-btn" onclick="copyAccount('abyssinia', '242102697')">
+            <i class="fas fa-copy"></i> Copy Account
+          </button>
         </div>
         <!-- CBE -->
         <div class="payment-card">
           <div class="icon"><i class="fas fa-building-columns"></i></div>
           <div class="app-name">CBE</div>
-          <div class="number">1000295220922</div>
-          <span class="app-badge"><i class="fas fa-external-link-alt"></i> Opens App</span>
-          <a class="pay-link" href="#" onclick="handlePayment('CBE','1000295220922','cbebirr://','https://combanketh.et'); return false;">
-            <i class="fas fa-arrow-right"></i> Pay
-          </a>
+          <div class="number" id="account-cbe">1000295220922</div>
+          <button class="copy-btn" onclick="copyAccount('cbe', '1000295220922')">
+            <i class="fas fa-copy"></i> Copy Account
+          </button>
         </div>
         <!-- Dashen -->
         <div class="payment-card">
           <div class="icon"><i class="fas fa-landmark"></i></div>
           <div class="app-name">Dashen</div>
-          <div class="number">5003806013011</div>
-          <span class="app-badge"><i class="fas fa-external-link-alt"></i> Opens App</span>
-          <a class="pay-link" href="#" onclick="handlePayment('Dashen','5003806013011','dashen://','https://dashenbank.com'); return false;">
-            <i class="fas fa-arrow-right"></i> Pay
-          </a>
+          <div class="number" id="account-dashen">5003806013011</div>
+          <button class="copy-btn" onclick="copyAccount('dashen', '5003806013011')">
+            <i class="fas fa-copy"></i> Copy Account
+          </button>
         </div>
       </div>
-      <div style="margin-top: 1rem; font-size: 0.8rem; color: #a0a9c7; text-align: center; border-top: 1px dashed rgba(255,215,0,0.1); padding-top: 1rem;">
-        <i class="fas fa-shield-alt" style="color: #f5c842;"></i> Click “Pay” to open the app & copy account number
+      <div style="margin-top: 1.2rem; font-size: 0.8rem; color: #a0a9c7; text-align: center; border-top: 1px dashed rgba(255,215,0,0.1); padding-top: 1rem;">
+        <i class="fas fa-info-circle" style="color: #f5c842;"></i> Click "Copy Account" to copy the number to your clipboard
       </div>
     </div>
 
@@ -423,75 +429,56 @@
     const toastMessage = document.getElementById('toastMessage');
     let toastTimeout;
 
-    function showToast(msg) {
-      toastMessage.textContent = msg;
-      toast.classList.add('show');
+    function showToast(message, type = 'success') {
+      // Clear any existing timeout
       clearTimeout(toastTimeout);
+      
+      // Set icon based on type
+      const icon = toast.querySelector('i');
+      if (type === 'success') {
+        icon.className = 'fas fa-check-circle';
+        icon.style.color = '#4caf50';
+      } else if (type === 'error') {
+        icon.className = 'fas fa-exclamation-circle';
+        icon.style.color = '#ff6b6b';
+      } else {
+        icon.className = 'fas fa-info-circle';
+        icon.style.color = '#f5c842';
+      }
+      
+      toastMessage.textContent = message;
+      toast.classList.add('show');
+      
+      // Auto hide after 3 seconds
       toastTimeout = setTimeout(() => {
         toast.classList.remove('show');
-      }, 4000);
+      }, 3000);
     }
 
     /**
-     * handlePayment - Copies account number, attempts to open the app via deep link,
-     * and falls back to website if app is not installed.
+     * Copy account number to clipboard
      */
-    function handlePayment(appName, accountNumber, deepLink, webUrl) {
-      // 1. Copy account number to clipboard
+    function copyAccount(appName, accountNumber) {
+      // Use the modern clipboard API
       if (navigator.clipboard && navigator.clipboard.writeText) {
         navigator.clipboard.writeText(accountNumber)
           .then(() => {
-            showToast(`✅ ${appName} account copied: ${accountNumber}`);
+            showToast(`✅ ${appName} account copied: ${accountNumber}`, 'success');
+            // Visual feedback on button
+            highlightButton(appName);
           })
           .catch(() => {
+            // Fallback to legacy method
             fallbackCopy(accountNumber, appName);
           });
       } else {
+        // Fallback for older browsers
         fallbackCopy(accountNumber, appName);
       }
-
-      // 2. Attempt to open the app via deep link
-      // First try the deep link (will open app if installed)
-      const appLink = document.createElement('a');
-      appLink.href = deepLink;
-      appLink.style.display = 'none';
-      document.body.appendChild(appLink);
-      
-      // Try to open the app
-      const startTime = Date.now();
-      appLink.click();
-      
-      // Fallback: if app doesn't open (user stays on page), redirect to website after a delay
-      setTimeout(() => {
-        const elapsed = Date.now() - startTime;
-        // If the page is still visible, the app likely didn't open
-        if (document.hasFocus() || elapsed > 500) {
-          // Open website as fallback
-          window.open(webUrl, '_blank');
-        }
-        document.body.removeChild(appLink);
-      }, 2500);
-
-      // Also try using window.location for better compatibility
-      setTimeout(() => {
-        // This is a second attempt using location.href
-        // Only do this if we haven't navigated away
-        try {
-          // Check if we're still on the page
-          if (document.hasFocus()) {
-            // Try location.href as another method
-            window.location.href = deepLink;
-          }
-        } catch (e) {
-          // Ignore errors
-        }
-      }, 100);
-
-      console.log(`🔗 ${appName} · Account: ${accountNumber} · Deep Link: ${deepLink} · Fallback: ${webUrl}`);
     }
 
     /**
-     * Fallback copy method using a temporary input element.
+     * Fallback copy method using a temporary input element
      */
     function fallbackCopy(text, appName) {
       const input = document.createElement('input');
@@ -499,108 +486,80 @@
       input.style.position = 'fixed';
       input.style.opacity = '0';
       input.style.left = '-9999px';
+      input.style.top = '-9999px';
       document.body.appendChild(input);
       input.select();
+      
       try {
-        document.execCommand('copy');
-        showToast(`✅ ${appName} account copied: ${text}`);
+        const success = document.execCommand('copy');
+        if (success) {
+          showToast(`✅ ${appName} account copied: ${text}`, 'success');
+          highlightButton(appName);
+        } else {
+          showToast(`❌ Failed to copy. Please copy manually: ${text}`, 'error');
+        }
       } catch (err) {
-        showToast(`📋 ${appName}: ${text} (copy manually)`);
+        showToast(`📋 ${appName}: ${text} (copy manually)`, 'info');
       }
+      
       document.body.removeChild(input);
     }
+
+    /**
+     * Visual feedback on the button
+     */
+    function highlightButton(appName) {
+      // Find the button for this app
+      const buttons = document.querySelectorAll('.copy-btn');
+      let targetBtn = null;
+      
+      buttons.forEach(btn => {
+        if (btn.textContent.toLowerCase().includes(appName.toLowerCase())) {
+          targetBtn = btn;
+        }
+      });
+      
+      // If not found by text, try to find by parent card
+      if (!targetBtn) {
+        const cards = document.querySelectorAll('.payment-card');
+        cards.forEach(card => {
+          const nameEl = card.querySelector('.app-name');
+          if (nameEl && nameEl.textContent.toLowerCase() === appName.toLowerCase()) {
+            targetBtn = card.querySelector('.copy-btn');
+          }
+        });
+      }
+      
+      if (targetBtn) {
+        // Save original text
+        const originalHTML = targetBtn.innerHTML;
+        targetBtn.innerHTML = '<i class="fas fa-check"></i> Copied!';
+        targetBtn.classList.add('copied');
+        
+        // Reset after 2 seconds
+        setTimeout(() => {
+          targetBtn.innerHTML = originalHTML;
+          targetBtn.classList.remove('copied');
+        }, 2000);
+      }
+    }
+
+    // Also allow clicking on the account number itself to copy
+    document.querySelectorAll('.number').forEach(el => {
+      el.style.cursor = 'pointer';
+      el.addEventListener('click', function() {
+        const text = this.textContent.trim();
+        const appName = this.closest('.payment-card').querySelector('.app-name').textContent;
+        copyAccount(appName, text);
+      });
+      // Add tooltip-like hint
+      el.title = 'Click to copy';
+    });
 
     // Initialize - hide toast on load
     window.addEventListener('load', function() {
       toast.classList.remove('show');
     });
-
-    // Alternative: Use a more aggressive approach for mobile
-    // This tries to use the intent:// scheme for Android
-    function getIntentUrl(packageName, deepLink) {
-      // For Android, we can use intent:// scheme
-      return `intent://${deepLink.replace(/^[a-z]+:\/\//, '')}#Intent;scheme=${deepLink.split(':')[0]};package=${packageName};end`;
-    }
-
-    // Deep link configurations with package names for Android
-    const appConfigs = {
-      'Telebirr': {
-        package: 'com.ethiotelebirr.app',
-        deepLink: 'telebirr://',
-        webUrl: 'https://telebirr.et'
-      },
-      'Abyssinia': {
-        package: 'com.abyssinia.bank',
-        deepLink: 'abyssinia://',
-        webUrl: 'https://abyssiniabank.com'
-      },
-      'CBE': {
-        package: 'com.cbe.birr',
-        deepLink: 'cbebirr://',
-        webUrl: 'https://combanketh.et'
-      },
-      'Dashen': {
-        package: 'com.dashen.bank',
-        deepLink: 'dashen://',
-        webUrl: 'https://dashenbank.com'
-      }
-    };
-
-    // Override handlePayment with enhanced version that uses intent for Android
-    const originalHandlePayment = handlePayment;
-    handlePayment = function(appName, accountNumber, deepLink, webUrl) {
-      // 1. Copy account number
-      if (navigator.clipboard && navigator.clipboard.writeText) {
-        navigator.clipboard.writeText(accountNumber)
-          .then(() => {
-            showToast(`✅ ${appName} account copied: ${accountNumber}`);
-          })
-          .catch(() => {
-            fallbackCopy(accountNumber, appName);
-          });
-      } else {
-        fallbackCopy(accountNumber, appName);
-      }
-
-      // 2. Detect if mobile and use appropriate deep link method
-      const isMobile = /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-      const isAndroid = /Android/i.test(navigator.userAgent);
-      
-      if (isMobile) {
-        // Try to open the app using multiple methods
-        if (isAndroid && appConfigs[appName]) {
-          // Use intent:// for Android - more reliable
-          const config = appConfigs[appName];
-          const intentUrl = `intent://${deepLink.replace(/^[a-z]+:\/\//, '')}#Intent;scheme=${deepLink.split(':')[0]};package=${config.package};end`;
-          
-          // Create and click intent link
-          const link = document.createElement('a');
-          link.href = intentUrl;
-          link.style.display = 'none';
-          document.body.appendChild(link);
-          link.click();
-          setTimeout(() => {
-            document.body.removeChild(link);
-          }, 1000);
-        } else {
-          // iOS or other: use location.href with deep link
-          window.location.href = deepLink;
-        }
-        
-        // Fallback: if app doesn't open, redirect to website after delay
-        setTimeout(() => {
-          // If we're still on the page, open website as fallback
-          if (document.hasFocus()) {
-            window.open(webUrl, '_blank');
-          }
-        }, 3000);
-      } else {
-        // Desktop: just open the website
-        window.open(webUrl, '_blank');
-      }
-
-      console.log(`🔗 ${appName} · Account: ${accountNumber} · Deep Link: ${deepLink} · Fallback: ${webUrl}`);
-    };
   </script>
 </body>
 </html>
