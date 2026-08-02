@@ -3,563 +3,581 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Sebez 360° Photo Booth · Book & Pay</title>
-  <!-- Font Awesome for icons -->
+  <title>Sebez 360° Photo Booth</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <style>
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
-      font-family: 'Poppins', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     }
 
     body {
-      background: linear-gradient(145deg, #0b0c10 0%, #1a1e2b 100%);
+      background: #0d0d0d;
       min-height: 100vh;
       display: flex;
       justify-content: center;
       align-items: center;
-      padding: 1.5rem;
+      padding: 1.2rem;
     }
 
-    .card {
-      max-width: 800px;
+    .container {
+      max-width: 750px;
       width: 100%;
-      background: rgba(255, 255, 255, 0.05);
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
-      border: 1px solid rgba(255, 215, 0, 0.2);
-      border-radius: 2.5rem;
-      padding: 2rem 2rem 2.8rem;
-      box-shadow: 0 30px 50px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(255, 215, 0, 0.1);
-      transition: all 0.3s ease;
+      background: #111;
+      border-radius: 2rem;
+      padding: 2rem;
+      border: 1px solid #2a2a2a;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.8);
     }
 
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-      margin-bottom: 1.2rem;
-      border-bottom: 1px solid rgba(255, 215, 0, 0.15);
-      padding-bottom: 1rem;
+    /* Header */
+    .header {
+      text-align: center;
+      padding-bottom: 1.2rem;
+      border-bottom: 1px solid #222;
     }
 
-    .brand i {
+    .header .logo-icon {
       font-size: 2.8rem;
       color: #f5c842;
-      filter: drop-shadow(0 0 6px #f5c84266);
+      display: block;
+      margin-bottom: 4px;
     }
 
-    .brand h1 {
-      font-size: 1.9rem;
+    .header h1 {
+      font-size: 2rem;
       font-weight: 700;
+      color: #fff;
       letter-spacing: -0.5px;
-      background: linear-gradient(135deg, #f5e56b, #f5b842);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
     }
 
-    .brand span {
-      font-size: 1rem;
-      font-weight: 300;
-      color: #b9b9c5;
-      margin-left: auto;
-      background: rgba(255, 215, 0, 0.08);
-      padding: 0.3rem 1rem;
-      border-radius: 40px;
-      border: 1px solid rgba(255, 215, 0, 0.15);
-    }
-
-    .hero-text {
-      color: #eaeef2;
-      margin: 1.8rem 0 1.5rem;
-    }
-
-    .hero-text h2 {
-      font-size: 1.8rem;
-      font-weight: 600;
-      line-height: 1.3;
-    }
-
-    .hero-text h2 i {
+    .header h1 span {
       color: #f5c842;
-      margin-right: 6px;
     }
 
-    .hero-text p {
-      margin-top: 0.6rem;
-      color: #b6bdd1;
-      font-size: 1.05rem;
-      border-left: 3px solid #f5c842;
-      padding-left: 1rem;
-      background: rgba(255, 215, 0, 0.02);
-      border-radius: 0 8px 8px 0;
-    }
-
-    .contact-grid {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.9rem 1.8rem;
-      background: rgba(0, 0, 0, 0.25);
-      padding: 1.2rem 1.5rem;
-      border-radius: 60px;
-      margin: 1.8rem 0 2.2rem;
-      border: 1px solid rgba(255, 215, 0, 0.08);
-      backdrop-filter: blur(2px);
-    }
-
-    .contact-item {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      color: #d0d6e8;
-      font-size: 0.95rem;
-      font-weight: 400;
-    }
-
-    .contact-item i {
-      width: 24px;
-      color: #f5c842;
-      font-size: 1.2rem;
-    }
-
-    .contact-item a {
-      color: #f0f3ff;
-      text-decoration: none;
-      border-bottom: 1px dotted rgba(255, 215, 0, 0.3);
-      transition: 0.2s;
-    }
-
-    .contact-item a:hover {
-      color: #f5c842;
-      border-bottom: 1px solid #f5c842;
-    }
-
-    .payment-section {
-      background: rgba(0, 0, 0, 0.35);
-      border-radius: 2rem;
-      padding: 1.8rem 1.8rem 2rem;
-      margin: 1.8rem 0 2rem;
-      border: 1px solid rgba(255, 215, 0, 0.1);
-      box-shadow: inset 0 2px 10px rgba(0,0,0,0.4);
-    }
-
-    .payment-section h3 {
-      color: #f5e7c8;
-      font-weight: 500;
+    .header .tagline {
+      color: #888;
+      font-size: 0.85rem;
+      margin-top: 4px;
       letter-spacing: 1px;
-      font-size: 1.3rem;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      margin-bottom: 1.5rem;
     }
 
-    .payment-section h3 i {
-      color: #f5c842;
+    /* Social Media - Main Focus */
+    .social-section {
+      margin: 1.8rem 0 1.5rem;
+      padding: 1.5rem;
+      background: #181818;
+      border-radius: 1.2rem;
+      border: 1px solid #252525;
+    }
+
+    .social-section .label {
+      color: #666;
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+
+    .social-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0.8rem;
+    }
+
+    .social-item {
+      background: #1a1a1a;
+      border-radius: 14px;
+      padding: 1rem 0.5rem;
+      text-align: center;
+      border: 1px solid #2a2a2a;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      display: block;
+    }
+
+    .social-item:hover {
+      border-color: #f5c842;
+      background: #1f1f1f;
+      transform: translateY(-2px);
+    }
+
+    .social-item i {
+      font-size: 1.8rem;
+      display: block;
+      margin-bottom: 6px;
+    }
+
+    .social-item .social-name {
+      color: #ddd;
+      font-size: 0.7rem;
+      font-weight: 500;
+    }
+
+    .social-item .social-handle {
+      color: #888;
+      font-size: 0.6rem;
+      display: block;
+      margin-top: 2px;
+    }
+
+    .social-item.instagram i { color: #E4405F; }
+    .social-item.tiktok i { color: #00f2ea; }
+    .social-item.telegram i { color: #0088cc; }
+    .social-item.phone i { color: #4caf50; }
+
+    /* Contact Info */
+    .contact-section {
+      background: #181818;
+      border-radius: 1.2rem;
+      padding: 1.2rem 1.5rem;
+      margin: 1.2rem 0 1.8rem;
+      border: 1px solid #252525;
+      text-align: center;
+    }
+
+    .contact-section .label {
+      color: #666;
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-bottom: 0.6rem;
+    }
+
+    .contact-section .phone-number {
+      color: #fff;
       font-size: 1.6rem;
+      font-weight: 600;
+      letter-spacing: 1px;
+    }
+
+    .contact-section .phone-number i {
+      color: #f5c842;
+      margin-right: 10px;
+    }
+
+    .contact-section .phone-number a {
+      color: #fff;
+      text-decoration: none;
+    }
+
+    .contact-section .phone-number a:hover {
+      color: #f5c842;
+    }
+
+    .contact-section .contact-note {
+      color: #666;
+      font-size: 0.75rem;
+      margin-top: 6px;
+    }
+
+    /* Services / Ad */
+    .services {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.5rem;
+      margin: 1.2rem 0;
+    }
+
+    .services .item {
+      background: #181818;
+      border-radius: 10px;
+      padding: 0.6rem 0.3rem;
+      text-align: center;
+      border: 1px solid #252525;
+    }
+
+    .services .item i {
+      color: #f5c842;
+      font-size: 1rem;
+      display: block;
+      margin-bottom: 2px;
+    }
+
+    .services .item span {
+      color: #aaa;
+      font-size: 0.7rem;
+    }
+
+    /* Payment - Last */
+    .payment {
+      background: #181818;
+      border-radius: 1.2rem;
+      padding: 1.5rem;
+      margin-top: 1.8rem;
+      border: 1px solid #252525;
+    }
+
+    .payment .payment-label {
+      color: #666;
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      text-align: center;
+      margin-bottom: 1rem;
     }
 
     .payment-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-      gap: 1rem;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0.7rem;
     }
 
     .payment-card {
-      background: rgba(255, 255, 255, 0.03);
-      border-radius: 24px;
-      padding: 1.2rem 0.8rem 1.2rem;
+      background: #1a1a1a;
+      border-radius: 14px;
+      padding: 0.9rem 0.5rem;
       text-align: center;
-      border: 1px solid rgba(255, 215, 0, 0.1);
-      transition: all 0.25s ease;
-      backdrop-filter: blur(2px);
-      cursor: default;
+      border: 1px solid #2a2a2a;
+      transition: 0.2s;
     }
 
     .payment-card:hover {
-      background: rgba(255, 215, 0, 0.04);
       border-color: #f5c842;
-      transform: translateY(-4px);
-      box-shadow: 0 12px 25px -10px rgba(245, 200, 66, 0.2);
+      background: #1f1f1f;
     }
 
-    .payment-card .icon {
-      font-size: 2.2rem;
-      font-weight: 600;
+    .payment-card .p-icon {
+      font-size: 1.4rem;
       color: #f5c842;
-      margin-bottom: 6px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 6px;
+      margin-bottom: 4px;
     }
 
-    .payment-card .app-name {
-      color: #f0f3fa;
+    .payment-card .p-name {
+      color: #eee;
       font-weight: 500;
-      font-size: 1.1rem;
-      letter-spacing: 0.3px;
+      font-size: 0.8rem;
     }
 
-    .payment-card .number {
-      color: #b0b9d4;
-      font-size: 0.85rem;
-      background: rgba(0,0,0,0.3);
-      padding: 0.35rem 0.8rem;
-      border-radius: 40px;
+    .payment-card .p-number {
+      color: #999;
+      font-size: 0.65rem;
+      background: #111;
+      padding: 0.2rem 0.4rem;
+      border-radius: 20px;
       display: inline-block;
-      margin-top: 10px;
-      font-family: 'Courier New', monospace;
-      letter-spacing: 0.5px;
-      border: 1px solid rgba(255, 215, 0, 0.05);
+      margin: 6px 0 8px;
+      font-family: monospace;
+      border: 1px solid #2a2a2a;
       word-break: break-all;
+      cursor: pointer;
+    }
+
+    .payment-card .p-number:hover {
+      border-color: #f5c842;
     }
 
     .payment-card .copy-btn {
-      display: inline-block;
-      margin-top: 14px;
       background: #f5c842;
-      color: #0b0c10;
+      color: #111;
+      border: none;
+      padding: 0.3rem 1rem;
+      border-radius: 30px;
       font-weight: 600;
-      padding: 0.5rem 1.6rem;
-      border-radius: 40px;
-      text-decoration: none;
-      font-size: 0.9rem;
-      transition: 0.2s;
-      box-shadow: 0 4px 12px rgba(245, 200, 66, 0.2);
-      border: 1px solid rgba(255, 255, 255, 0.1);
+      font-size: 0.7rem;
       cursor: pointer;
-      user-select: none;
+      transition: 0.2s;
+      width: 100%;
+      max-width: 100px;
     }
 
     .payment-card .copy-btn:hover {
-      background: #ffe074;
-      box-shadow: 0 6px 18px rgba(245, 200, 66, 0.4);
-      transform: scale(1.02);
-    }
-
-    .payment-card .copy-btn:active {
-      transform: scale(0.95);
-    }
-
-    .payment-card .copy-btn i {
-      margin-right: 8px;
+      background: #ffd95e;
     }
 
     .payment-card .copy-btn.copied {
       background: #4caf50;
-      border-color: #4caf50;
-      color: white;
+      color: #fff;
     }
 
-    .footnote {
-      color: #9ea6bf;
-      font-size: 0.9rem;
+    .payment-hint {
       text-align: center;
-      border-top: 1px solid rgba(255, 215, 0, 0.05);
-      padding-top: 1.8rem;
-      margin-top: 0.8rem;
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 0.8rem 1.8rem;
+      color: #555;
+      font-size: 0.7rem;
+      margin-top: 1rem;
+      border-top: 1px solid #222;
+      padding-top: 0.8rem;
     }
 
-    .footnote i {
+    .payment-hint i {
       color: #f5c842;
-      margin-right: 6px;
+      margin-right: 4px;
     }
 
-    /* Toast notification */
+    /* Footer */
+    .footer {
+      color: #555;
+      font-size: 0.75rem;
+      text-align: center;
+      border-top: 1px solid #1a1a1a;
+      padding-top: 1.2rem;
+      margin-top: 1.5rem;
+    }
+
+    .footer i {
+      color: #f5c842;
+      margin: 0 4px;
+    }
+
+    /* Toast */
     .toast {
       position: fixed;
-      bottom: 30px;
+      bottom: 20px;
       left: 50%;
-      transform: translateX(-50%) translateY(100px);
-      background: rgba(0,0,0,0.9);
-      backdrop-filter: blur(8px);
-      color: #f5e7c8;
-      padding: 0.9rem 2rem;
-      border-radius: 60px;
+      transform: translateX(-50%) translateY(80px);
+      background: #1a1a1a;
+      color: #eee;
+      padding: 0.7rem 1.5rem;
+      border-radius: 40px;
       border: 1px solid #f5c842;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.7);
-      font-weight: 500;
+      font-size: 0.85rem;
+      opacity: 0;
+      transition: all 0.3s ease;
+      pointer-events: none;
+      z-index: 999;
       display: flex;
       align-items: center;
-      gap: 12px;
-      z-index: 999;
-      opacity: 0;
-      transition: all 0.4s ease;
-      pointer-events: none;
-      font-size: 0.95rem;
-      max-width: 90%;
+      gap: 10px;
     }
 
     .toast.show {
       opacity: 1;
       transform: translateX(-50%) translateY(0);
-      pointer-events: auto;
     }
 
     .toast i {
       color: #4caf50;
-      font-size: 1.4rem;
+      font-size: 1.1rem;
     }
 
-    .toast .toast-icon-error i {
-      color: #ff6b6b;
-    }
-
-    .toast .toast-icon-copy i {
-      color: #f5c842;
-    }
-
-    @media (max-width: 550px) {
-      .card { padding: 1.5rem; }
-      .brand h1 { font-size: 1.4rem; }
-      .contact-grid { border-radius: 30px; padding: 1rem; flex-direction: column; align-items: flex-start; gap: 0.5rem; }
+    @media (max-width: 600px) {
+      .container { padding: 1.2rem; }
+      .social-grid { grid-template-columns: 1fr 1fr; }
       .payment-grid { grid-template-columns: 1fr 1fr; }
-      .hero-text h2 { font-size: 1.4rem; }
-      .toast { width: 90%; font-size: 0.85rem; padding: 0.8rem 1.2rem; }
+      .services { grid-template-columns: 1fr 1fr; }
+      .contact-section .phone-number { font-size: 1.2rem; }
+      .header h1 { font-size: 1.6rem; }
     }
 
     @media (max-width: 400px) {
       .payment-grid { grid-template-columns: 1fr; }
+      .social-grid { grid-template-columns: 1fr; }
+      .services { grid-template-columns: 1fr; }
     }
   </style>
 </head>
 <body>
-  <!-- Toast notification -->
-  <div id="toast" class="toast">
-    <i class="fas fa-check-circle"></i>
-    <span id="toastMessage">Copied!</span>
-  </div>
 
-  <div class="card">
-    <!-- Brand -->
-    <div class="brand">
-      <i class="fas fa-camera"></i>
-      <h1>Sebez 360°</h1>
-      <span>premium</span>
+  <div class="container">
+
+    <!-- Header -->
+    <div class="header">
+      <i class="fas fa-camera logo-icon"></i>
+      <h1>Sebez <span>360°</span></h1>
+      <p class="tagline">PREMIUM PHOTO BOOTH EXPERIENCE</p>
     </div>
 
-    <!-- hero -->
-    <div class="hero-text">
-      <h2><i class="fas fa-circle fa-2xs" style="vertical-align: middle; color: #f5c842;"></i> 360° photo booth · weddings, events & more</h2>
-      <p>
-        <i class="fas fa-star" style="color: #f5c842; margin-right: 6px;"></i> 
-        Premium 360° experience for birthdays, graduations, concerts, corporate events & special occasions.
-      </p>
+    <!-- SOCIAL MEDIA - Main Focus -->
+    <div class="social-section">
+      <div class="label">Connect With Us</div>
+      <div class="social-grid">
+        <a href="https://instagram.com/sebez_360_booth" target="_blank" class="social-item instagram">
+          <i class="fab fa-instagram"></i>
+          <span class="social-name">Instagram</span>
+          <span class="social-handle">@sebez_360_booth</span>
+        </a>
+        <a href="https://tiktok.com/@sebez360photobooth" target="_blank" class="social-item tiktok">
+          <i class="fab fa-tiktok"></i>
+          <span class="social-name">TikTok</span>
+          <span class="social-handle">@sebez360photobooth</span>
+        </a>
+        <a href="https://t.me/s_ebez" target="_blank" class="social-item telegram">
+          <i class="fab fa-telegram-plane"></i>
+          <span class="social-name">Telegram</span>
+          <span class="social-handle">@s_ebez</span>
+        </a>
+        <a href="tel:+251997125050" class="social-item phone">
+          <i class="fas fa-phone-alt"></i>
+          <span class="social-name">Call Us</span>
+          <span class="social-handle">+251 99 712 5050</span>
+        </a>
+      </div>
     </div>
 
-    <!-- Contacts with updated number and functional social links -->
-    <div class="contact-grid">
-      <div class="contact-item"><i class="fas fa-phone-alt"></i> <a href="tel:+251997125050">+251 99 712 5050</a></div>
-      <div class="contact-item"><i class="fab fa-instagram"></i> <a href="https://instagram.com/sebez_360_booth" target="_blank" rel="noopener noreferrer">@sebez_360_booth</a></div>
-      <div class="contact-item"><i class="fab fa-tiktok"></i> <a href="https://tiktok.com/@sebez360photobooth" target="_blank" rel="noopener noreferrer">@sebez360photobooth</a></div>
-      <div class="contact-item"><i class="fab fa-telegram-plane"></i> <a href="https://t.me/s_ebez" target="_blank" rel="noopener noreferrer">@s_ebez</a></div>
+    <!-- Contact - Prominent -->
+    <div class="contact-section">
+      <div class="label">Contact Us Directly</div>
+      <div class="phone-number">
+        <i class="fas fa-phone-alt"></i>
+        <a href="tel:+251997125050">+251 99 712 5050</a>
+      </div>
+      <p class="contact-note">📱 Available on Telegram, Instagram & TikTok — reach out anytime!</p>
     </div>
 
-    <!-- PAYMENT SECTION - Copy Only -->
-    <div class="payment-section">
-      <h3><i class="fas fa-hand-holding-usd"></i> Pay with your preferred app</h3>
+    <!-- Services / What We Offer -->
+    <div class="services">
+      <div class="item">
+        <i class="fas fa-video"></i>
+        <span>360° Slow-Mo</span>
+      </div>
+      <div class="item">
+        <i class="fas fa-users"></i>
+        <span>Group Friendly</span>
+      </div>
+      <div class="item">
+        <i class="fas fa-share-alt"></i>
+        <span>Instant Share</span>
+      </div>
+      <div class="item">
+        <i class="fas fa-palette"></i>
+        <span>Custom Branding</span>
+      </div>
+      <div class="item">
+        <i class="fas fa-music"></i>
+        <span>Music & Lights</span>
+      </div>
+      <div class="item">
+        <i class="fas fa-calendar-check"></i>
+        <span>Book Now</span>
+      </div>
+    </div>
+
+    <!-- PAYMENT - Last -->
+    <div class="payment">
+      <div class="payment-label"><i class="fas fa-hand-holding-usd"></i> Payment Options</div>
+
       <div class="payment-grid">
         <!-- Telebirr -->
         <div class="payment-card">
-          <div class="icon"><i class="fas fa-mobile-alt"></i></div>
-          <div class="app-name">Telebirr</div>
-          <div class="number" id="account-telebirr">0924431371</div>
-          <button class="copy-btn" onclick="copyAccount('telebirr', '0924431371)">
-            <i class="fas fa-copy"></i> Copy Account
+          <div class="p-icon"><i class="fas fa-mobile-alt"></i></div>
+          <div class="p-name">Telebirr</div>
+          <div class="p-number" onclick="copyAccount('Telebirr', '0924431371')">0924431371</div>
+          <button class="copy-btn" onclick="copyAccount('Telebirr', '0924431371')">
+            <i class="fas fa-copy"></i> Copy
           </button>
         </div>
+
         <!-- Abyssinia -->
         <div class="payment-card">
-          <div class="icon"><i class="fas fa-university"></i></div>
-          <div class="app-name">Abyssinia</div>
-          <div class="number" id="account-abyssinia">242102697</div>
-          <button class="copy-btn" onclick="copyAccount('abyssinia', '242102697')">
-            <i class="fas fa-copy"></i> Copy Account
+          <div class="p-icon"><i class="fas fa-university"></i></div>
+          <div class="p-name">Abyssinia</div>
+          <div class="p-number" onclick="copyAccount('Abyssinia', '242102697')">242102697</div>
+          <button class="copy-btn" onclick="copyAccount('Abyssinia', '242102697')">
+            <i class="fas fa-copy"></i> Copy
           </button>
         </div>
+
         <!-- CBE -->
         <div class="payment-card">
-          <div class="icon"><i class="fas fa-building-columns"></i></div>
-          <div class="app-name">CBE</div>
-          <div class="number" id="account-cbe">1000417441208</div>
-          <button class="copy-btn" onclick="copyAccount('cbe', '1000417441208')">
-            <i class="fas fa-copy"></i> Copy Account
+          <div class="p-icon"><i class="fas fa-building-columns"></i></div>
+          <div class="p-name">CBE</div>
+          <div class="p-number" onclick="copyAccount('CBE', '1000417441208')">1000417441208</div>
+          <button class="copy-btn" onclick="copyAccount('CBE', '1000417441208')">
+            <i class="fas fa-copy"></i> Copy
           </button>
         </div>
+
         <!-- Dashen -->
         <div class="payment-card">
-          <div class="icon"><i class="fas fa-landmark"></i></div>
-          <div class="app-name">Dashen</div>
-          <div class="number" id="account-dashen">5003806013011</div>
-          <button class="copy-btn" onclick="copyAccount('dashen', '5003806013011')">
-            <i class="fas fa-copy"></i> Copy Account
+          <div class="p-icon"><i class="fas fa-landmark"></i></div>
+          <div class="p-name">Dashen</div>
+          <div class="p-number" onclick="copyAccount('Dashen', '5003806013011')">5003806013011</div>
+          <button class="copy-btn" onclick="copyAccount('Dashen', '5003806013011')">
+            <i class="fas fa-copy"></i> Copy
           </button>
         </div>
       </div>
-      <div style="margin-top: 1.2rem; font-size: 0.8rem; color: #a0a9c7; text-align: center; border-top: 1px dashed rgba(255,215,0,0.1); padding-top: 1rem;">
-        <i class="fas fa-info-circle" style="color: #f5c842;"></i> Click "Copy Account" to copy the number to your clipboard
+
+      <div class="payment-hint">
+        <i class="fas fa-info-circle"></i> Click the number or "Copy" to copy the account
       </div>
     </div>
 
-    <!-- footer / collaboration message -->
-    <div class="footnote">
-      <span><i class="fas fa-handshake"></i> We'd love to collaborate</span>
-      <span><i class="fas fa-calendar-check"></i> Weddings · Birthdays · Graduations · Concerts · Corporate</span>
-      <span><i class="fas fa-share-alt"></i> Keep us in mind & share our contact 🙏</span>
-    </div>
-
-    <!-- subtle extra: thank you message -->
-    <div style="margin-top: 1.2rem; text-align: center; color: #bcc3db; font-size: 0.9rem; background: rgba(0,0,0,0.15); padding: 0.6rem 0.8rem; border-radius: 60px; border: 1px solid rgba(255,215,0,0.03);">
-      <i class="fas fa-quote-left" style="color: #f5c842; opacity: 0.6;"></i> 
-      Thank you for taking the time — Sebez 360° Photo Booth
+    <!-- Footer -->
+    <div class="footer">
+      <span><i class="fas fa-handshake"></i> Weddings · Birthdays · Graduations · Concerts · Corporate</span>
+      <br>
+      <span style="font-size: 0.7rem; color: #444;">© 2026 Sebez 360° Photo Booth — Thank you for your support 🙏</span>
     </div>
   </div>
 
+  <!-- Toast -->
+  <div id="toast" class="toast">
+    <i class="fas fa-check-circle"></i>
+    <span id="toastMsg">Copied!</span>
+  </div>
+
   <script>
-    // Toast element
     const toast = document.getElementById('toast');
-    const toastMessage = document.getElementById('toastMessage');
-    let toastTimeout;
+    const toastMsg = document.getElementById('toastMsg');
+    let toastTimer;
 
-    function showToast(message, type = 'success') {
-      // Clear any existing timeout
-      clearTimeout(toastTimeout);
-      
-      // Set icon based on type
-      const icon = toast.querySelector('i');
-      if (type === 'success') {
-        icon.className = 'fas fa-check-circle';
-        icon.style.color = '#4caf50';
-      } else if (type === 'error') {
-        icon.className = 'fas fa-exclamation-circle';
-        icon.style.color = '#ff6b6b';
-      } else {
-        icon.className = 'fas fa-info-circle';
-        icon.style.color = '#f5c842';
-      }
-      
-      toastMessage.textContent = message;
+    function showToast(msg) {
+      clearTimeout(toastTimer);
+      toastMsg.textContent = msg;
       toast.classList.add('show');
-      
-      // Auto hide after 3 seconds
-      toastTimeout = setTimeout(() => {
-        toast.classList.remove('show');
-      }, 3000);
+      toastTimer = setTimeout(() => toast.classList.remove('show'), 2500);
     }
 
-    /**
-     * Copy account number to clipboard
-     */
-    function copyAccount(appName, accountNumber) {
-      // Use the modern clipboard API
+    function copyAccount(app, number) {
       if (navigator.clipboard && navigator.clipboard.writeText) {
-        navigator.clipboard.writeText(accountNumber)
+        navigator.clipboard.writeText(number)
           .then(() => {
-            showToast(`✅ ${appName} account copied: ${accountNumber}`, 'success');
-            // Visual feedback on button
-            highlightButton(appName);
+            showToast(`✅ ${app}: ${number}`);
+            highlightBtn(app);
           })
-          .catch(() => {
-            // Fallback to legacy method
-            fallbackCopy(accountNumber, appName);
-          });
+          .catch(() => fallbackCopy(number, app));
       } else {
-        // Fallback for older browsers
-        fallbackCopy(accountNumber, appName);
+        fallbackCopy(number, app);
       }
     }
 
-    /**
-     * Fallback copy method using a temporary input element
-     */
-    function fallbackCopy(text, appName) {
-      const input = document.createElement('input');
-      input.value = text;
-      input.style.position = 'fixed';
-      input.style.opacity = '0';
-      input.style.left = '-9999px';
-      input.style.top = '-9999px';
-      document.body.appendChild(input);
-      input.select();
-      
+    function fallbackCopy(text, app) {
+      const el = document.createElement('input');
+      el.value = text;
+      el.style.cssText = 'position:fixed;opacity:0;left:-9999px;top:-9999px';
+      document.body.appendChild(el);
+      el.select();
       try {
-        const success = document.execCommand('copy');
-        if (success) {
-          showToast(`✅ ${appName} account copied: ${text}`, 'success');
-          highlightButton(appName);
+        if (document.execCommand('copy')) {
+          showToast(`✅ ${app}: ${text}`);
+          highlightBtn(app);
         } else {
-          showToast(`❌ Failed to copy. Please copy manually: ${text}`, 'error');
+          showToast(`📋 ${app}: ${text}`);
         }
-      } catch (err) {
-        showToast(`📋 ${appName}: ${text} (copy manually)`, 'info');
+      } catch {
+        showToast(`📋 ${app}: ${text}`);
       }
-      
-      document.body.removeChild(input);
+      document.body.removeChild(el);
     }
 
-    /**
-     * Visual feedback on the button
-     */
-    function highlightButton(appName) {
-      // Find the button for this app
-      const buttons = document.querySelectorAll('.copy-btn');
-      let targetBtn = null;
-      
-      buttons.forEach(btn => {
-        if (btn.textContent.toLowerCase().includes(appName.toLowerCase())) {
-          targetBtn = btn;
-        }
+    function highlightBtn(app) {
+      const btns = document.querySelectorAll('.copy-btn');
+      let target = null;
+      btns.forEach(b => {
+        if (b.textContent.includes(app)) target = b;
       });
-      
-      // If not found by text, try to find by parent card
-      if (!targetBtn) {
-        const cards = document.querySelectorAll('.payment-card');
-        cards.forEach(card => {
-          const nameEl = card.querySelector('.app-name');
-          if (nameEl && nameEl.textContent.toLowerCase() === appName.toLowerCase()) {
-            targetBtn = card.querySelector('.copy-btn');
+      if (!target) {
+        document.querySelectorAll('.payment-card').forEach(card => {
+          if (card.querySelector('.p-name')?.textContent === app) {
+            target = card.querySelector('.copy-btn');
           }
         });
       }
-      
-      if (targetBtn) {
-        // Save original text
-        const originalHTML = targetBtn.innerHTML;
-        targetBtn.innerHTML = '<i class="fas fa-check"></i> Copied!';
-        targetBtn.classList.add('copied');
-        
-        // Reset after 2 seconds
+      if (target) {
+        const orig = target.innerHTML;
+        target.innerHTML = '<i class="fas fa-check"></i> Done';
+        target.classList.add('copied');
         setTimeout(() => {
-          targetBtn.innerHTML = originalHTML;
-          targetBtn.classList.remove('copied');
-        }, 2000);
+          target.innerHTML = orig;
+          target.classList.remove('copied');
+        }, 1800);
       }
     }
-
-    // Also allow clicking on the account number itself to copy
-    document.querySelectorAll('.number').forEach(el => {
-      el.style.cursor = 'pointer';
-      el.addEventListener('click', function() {
-        const text = this.textContent.trim();
-        const appName = this.closest('.payment-card').querySelector('.app-name').textContent;
-        copyAccount(appName, text);
-      });
-      // Add tooltip-like hint
-      el.title = 'Click to copy';
-    });
-
-    // Initialize - hide toast on load
-    window.addEventListener('load', function() {
-      toast.classList.remove('show');
-    });
   </script>
+
 </body>
 </html>
